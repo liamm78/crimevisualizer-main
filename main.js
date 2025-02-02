@@ -1,5 +1,8 @@
-var map = L.map('map').setView([40.71, -74], 10);
-let selectedYear = 2000;
+var map = L.map('map', {
+    center: [40.71, -74],
+    zoom: 10,
+    minZoom: 10, // Prevent zooming out beyond zoom level 10
+}).setView([40.71, -74], 10);let selectedYear = 2000;
 let selectedFelony = "murder";
 
 var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -129,7 +132,7 @@ function getYear() {  // get's the year from the
 
     // Add the updated geojson layer with the new year
     geojsonLayer = L.geoJson(nydata1, {
-        style: style,
+        style: style, //calls the style function and
         onEachFeature: onEachFeature
     }).addTo(map);
 }
@@ -137,12 +140,12 @@ function getYear() {  // get's the year from the
 function getFelony() {  // get's the year from the 
     selectedFelony = document.getElementById("Felonies").value; // Get selected year from dropdown
 
-    // Remove the previous geojson layer before adding the new one
+    // Refresh the map by removing the previous layer
     if (geojsonLayer) {
         map.removeLayer(geojsonLayer);
     }
 
-    // Add the updated geojson layer with the new year
+    // Add the updated geojson layer with the new layer
     geojsonLayer = L.geoJson(nydata1, {
         style: style,
         onEachFeature: onEachFeature
